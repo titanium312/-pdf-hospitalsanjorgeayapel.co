@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visor PDF</title>
+  <style>
+    :root { --bg:#0b1020; --panel:#111831; --txt:#e8ecf7; --muted:#93a1c8; --accent:#7aa2ff; }
+    *{box-sizing:border-box}
+    body{margin:0; background:var(--bg); color:var(--txt); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto}
+    header{display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(17,24,49,.85), rgba(17,24,49,.65)); backdrop-filter: blur(6px); position:sticky; top:0; z-index:10}
+    .crumbs{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .sp{flex:1}
+    .bar{display:flex; gap:8px}
+    button,a.btn{appearance:none; border:1px solid rgba(255,255,255,.12); background:var(--panel); color:var(--txt); padding:8px 12px; border-radius:10px; font-weight:600; cursor:pointer; text-decoration:none}
+    a.btn.primary{background:linear-gradient(180deg,#1f2a4a,#162243); border-color:#2d3b63}
+    main{max-width:1200px; margin:14px auto; padding:0 10px}
+    .frameWrap{border:1px solid rgba(255,255,255,.1); border-radius:16px; overflow:hidden; box-shadow:0 10px 28px rgba(0,0,0,.35)}
+    iframe{width:100%; height:80vh; display:block; background:#0a0f1f}
+    .hint{color:var(--muted); font-size:12px; padding:10px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="crumbs" id="crumbs">📄 Visor</div>
+    <div class="sp"></div>
+    <div class="bar">
+      <a id="openTab" class="btn">Abrir pestaña</a>
+      <a id="download" class="btn primary" download>Descargar</a>
+      <a class="btn" href="/" title="Volver">Inicio</a>
+    </div>
+  </header>
+  <main>
+    <div class="frameWrap">
+      <iframe id="frame" src=""></iframe>
+    </div>
+    <div class="hint">Si el PDF no carga, abre en nueva pestaña o verifica que exista en <code>/public/pdfs</code>.</div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const file = (params.get('file') || '').replace(/[^\w\-\. %]/g,'');
+    const src = file ? '/pdfs/' + encodeURIComponent(file) : '';
+
+    const frame = document.getElementById('frame');
+    const openTab = document.getElementById('openTab');
+    const download = document.getElementById('download');
+    const crumbs = document.getElementById('crumbs');
+
+    if (!file) {
+      frame.srcdoc = '<div style="padding:24px;color:#93a1c8">Falta el parámetro <b>?file=</b></div>';
+    } else {
+      frame.src = src;
+      openTab.href = src; openTab.target = '_blank'; openTab.rel='noopener';
+      download.href = src; download.download = file;
+      crumbs.textContent = '📄 ' + file;
+      document.title = 'Visor: ' + file;
+    }
+  </script>
+</body>
+</html>
