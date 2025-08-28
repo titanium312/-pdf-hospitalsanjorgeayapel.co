@@ -1,15 +1,7 @@
 {
-  "name": "vercel-pdf-viewer-autolist",
-  "version": "1.0.0",
+  "name": "visor-hsj-ayapel",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest"
+    "build": "echo \"No build step\""
   }
 }
