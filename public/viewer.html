@@ -27,12 +27,12 @@
       margin: 0;
       background: var(--bg);
       color: var(--txt);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       line-height: 1.6;
     }
     
     .header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      background: rgb(155, 236, 238);
       color: white;
       box-shadow: 0 4px 12px var(--shadow);
       position: sticky;
@@ -271,12 +271,6 @@
         </div>
       </div>
       <div class="header-actions">
-        <a id="openTab" class="btn" target="_blank" rel="noopener">
-          📋 Nueva Pestaña
-        </a>
-        <a id="download" class="btn primary" download>
-          💾 Descargar
-        </a>
         <a class="btn back" href="https://hospitalsanjorgeayapel.com/">
           🏠 Volver al Portal
         </a>
@@ -287,22 +281,8 @@
   <main>
     <div class="document-info">
       <h2 class="document-title">
-        📄 <span id="documentName">Documento</span>
+         <span id="documentName">Documento</span>
       </h2>
-      <div class="document-meta">
-        <div class="meta-item">
-          <span>📅</span>
-          <span id="viewDate">Fecha de visualización: <strong id="currentDate"></strong></span>
-        </div>
-        <div class="meta-item">
-          <span>🔒</span>
-          <span>Documento oficial del Hospital San Jorge de Ayapel</span>
-        </div>
-        <div class="meta-item" id="fileSize" style="display: none;">
-          <span>📊</span>
-          <span id="fileSizeText">Tamaño del archivo</span>
-        </div>
-      </div>
     </div>
 
     <div class="pdf-container">
