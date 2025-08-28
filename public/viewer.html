@@ -6,31 +6,26 @@
   <title>Visor PDF - Hospital San Jorge de Ayapel</title>
   <style>
     :root { 
-      --primary: #2c5aa0;
-      --primary-light: #3a6bb5;
-      --secondary: #1a365d;
-      --bg: #f8fafc;
+      --primary: #13b8c5;
+      --primary-light: rgb(155, 236, 238);
+      --bg: #f9fafb;
       --panel: #ffffff;
-      --txt: #1a202c;
+      --txt: #0f172a;
       --muted: #64748b;
-      --accent: #3182ce;
       --border: #e2e8f0;
-      --shadow: rgba(0, 0, 0, 0.1);
-      --success: #38a169;
+      --shadow: rgba(0,0,0,0.08);
     }
-    
-    * {
-      box-sizing: border-box;
-    }
-    
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--txt);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
     }
-    
+
     .header {
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: white;
@@ -39,247 +34,150 @@
       top: 0;
       z-index: 100;
     }
-    
+
     .header-content {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 16px 20px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
     }
-    
-    .hospital-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .hospital-logo {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-    
+
     .hospital-info h1 {
       margin: 0;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.5px;
     }
-    
+
     .hospital-info .subtitle {
       margin: 0;
-      font-size: 12px;
+      font-size: 13px;
       opacity: 0.9;
       font-weight: 400;
     }
-    
+
     .header-actions {
       display: flex;
       gap: 10px;
       align-items: center;
     }
-    
+
     .btn {
-      appearance: none;
       border: none;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255,255,255,0.2);
       color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 500;
       cursor: pointer;
       text-decoration: none;
       font-size: 14px;
       transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
-    
+
     .btn:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255,255,255,0.3);
       transform: translateY(-1px);
     }
-    
+
     .btn.primary {
-      background: var(--success);
-    }
-    
-    .btn.primary:hover {
-      background: #2f855a;
-    }
-    
-    .btn.back {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--primary);
-    }
-    
-    .btn.back:hover {
       background: white;
-      color: var(--secondary);
+      color: var(--primary);
+      font-weight: 600;
     }
-    
+    .btn.primary:hover {
+      background: var(--primary-light);
+    }
+
     main {
       max-width: 1200px;
       margin: 0 auto;
       padding: 24px 20px;
     }
-    
+
     .document-info {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 18px;
       margin-bottom: 20px;
-      box-shadow: 0 2px 8px var(--shadow);
+      box-shadow: 0 2px 6px var(--shadow);
     }
-    
+
     .document-title {
       margin: 0 0 8px 0;
       font-size: 20px;
       font-weight: 600;
       color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
-    
+
     .document-meta {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       color: var(--muted);
       font-size: 14px;
-      margin-top: 12px;
       flex-wrap: wrap;
     }
-    
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
+
     .pdf-container {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 16px var(--shadow);
+      box-shadow: 0 2px 10px var(--shadow);
       position: relative;
     }
-    
+
     .pdf-container::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      z-index: 1;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
     }
-    
+
     iframe {
       width: 100%;
       height: 80vh;
       min-height: 600px;
       display: block;
-      background: #fafafa;
+      background: #f4f4f4;
       border: none;
     }
-    
-    .loading-message {
-      padding: 40px;
-      text-align: center;
-      color: var(--muted);
-      background: var(--panel);
-    }
-    
-    .error-message {
-      padding: 30px;
-      text-align: center;
-      color: #e53e3e;
-      background: #fed7d7;
-      border-radius: 8px;
-      margin: 20px 0;
-    }
-    
+
     .help-text {
-      background: #e6fffa;
-      border: 1px solid #81e6d9;
+      background: var(--primary-light);
       border-radius: 8px;
-      padding: 16px;
+      padding: 14px;
       margin-top: 16px;
       font-size: 14px;
-      color: #285e61;
+      color: #064e53;
     }
-    
+
     .footer {
       margin-top: 40px;
-      padding-top: 20px;
+      padding-top: 18px;
       border-top: 1px solid var(--border);
       text-align: center;
       color: var(--muted);
       font-size: 12px;
-    }
-    
-    @media (max-width: 768px) {
-      .header-content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-      }
-      
-      .header-actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .hospital-info h1 {
-        font-size: 18px;
-      }
-      
-      .document-meta {
-        flex-direction: column;
-        gap: 8px;
-      }
-      
-      iframe {
-        height: 70vh;
-        min-height: 500px;
-      }
     }
   </style>
 </head>
 <body>
   <header class="header">
     <div class="header-content">
-      <div class="hospital-title">
-        <div class="hospital-logo">??</div>
-        <div class="hospital-info">
-          <h1>Hospital San Jorge de Ayapel</h1>
-          <p class="subtitle">Sistema de Documentos Digitales</p>
-        </div>
+      <div class="hospital-info">
+        <h1>Hospital San Jorge de Ayapel</h1>
+        <p class="subtitle">Sistema de Documentos Digitales</p>
       </div>
       <div class="header-actions">
-        <a id="openTab" class="btn" target="_blank" rel="noopener">
-          ?? Nueva Pesta?a
-        </a>
-        <a id="download" class="btn primary" download>
-          ?? Descargar
-        </a>
-        <a class="btn back" href="https://hospitalsanjorgeayapel.com/">
-          ?? Volver al Portal
-        </a>
+        <a id="openTab" class="btn" target="_blank" rel="noopener">Abrir en nueva pesta?a</a>
+        <a id="download" class="btn primary" download>Descargar</a>
+        <a class="btn" href="https://hospitalsanjorgeayapel.com/">Volver al Portal</a>
       </div>
     </div>
   </header>
@@ -287,21 +185,11 @@
   <main>
     <div class="document-info">
       <h2 class="document-title">
-        ?? <span id="documentName">Documento</span>
+        <span id="documentName">Documento</span>
       </h2>
       <div class="document-meta">
-        <div class="meta-item">
-          <span>??</span>
-          <span id="viewDate">Fecha de visualizaci車n: <strong id="currentDate"></strong></span>
-        </div>
-        <div class="meta-item">
-          <span>??</span>
-          <span>Documento oficial del Hospital San Jorge de Ayapel</span>
-        </div>
-        <div class="meta-item" id="fileSize" style="display: none;">
-          <span>??</span>
-          <span id="fileSizeText">Tama?o del archivo</span>
-        </div>
+        <div>Fecha de visualizaci車n: <strong id="currentDate"></strong></div>
+        <div>Documento oficial del Hospital San Jorge de Ayapel</div>
       </div>
     </div>
 
@@ -310,7 +198,7 @@
     </div>
 
     <div class="help-text">
-      <strong>?? Sugerencia:</strong> Si el documento no se visualiza correctamente, puede utilizar el bot車n "Nueva Pesta?a" para abrirlo en una ventana independiente, o el bot車n "Descargar" para guardarlo en su dispositivo.
+      Si el documento no se visualiza correctamente, use "Abrir en nueva pesta?a" o "Descargar".
     </div>
 
     <div class="footer">
@@ -320,86 +208,51 @@
   </main>
 
   <script>
-    // Configuraci車n inicial
     const params = new URLSearchParams(location.search);
     const file = (params.get('file') || '').replace(/[^\w\-\. %]/g, '');
     const src = file ? '/pdfs/' + encodeURIComponent(file) : '';
 
-    // Elementos del DOM
     const pdfFrame = document.getElementById('pdfFrame');
     const openTab = document.getElementById('openTab');
     const download = document.getElementById('download');
     const documentName = document.getElementById('documentName');
     const currentDate = document.getElementById('currentDate');
 
-    // Funci車n para formatear la fecha actual
     function formatCurrentDate() {
       const now = new Date();
       const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+        weekday: 'long', year: 'numeric', month: 'long',
+        day: 'numeric', hour: '2-digit', minute: '2-digit'
       };
       return now.toLocaleDateString('es-CO', options);
     }
 
-    // Funci車n para obtener el nombre limpio del archivo
     function getCleanFileName(filename) {
       return filename.replace(/\.(pdf|PDF)$/, '').replace(/[-_]/g, ' ');
     }
 
-    // Inicializaci車n
     function init() {
-      // Establecer fecha actual
-      currentDate.textContent = formatCurrentDate();
+      if (currentDate) currentDate.textContent = formatCurrentDate();
 
       if (!file) {
-        // Mostrar mensaje de error si no hay archivo
         pdfFrame.srcdoc = `
-          <div style="padding: 40px; text-align: center; font-family: 'Segoe UI', sans-serif;">
-            <div style="font-size: 48px; margin-bottom: 20px;">??</div>
-            <h3 style="color: #e53e3e; margin-bottom: 10px;">No se especific車 ning迆n documento</h3>
-            <p style="color: #64748b;">Para visualizar un documento, agregue el par芍metro <code>?file=nombre-del-archivo.pdf</code> a la URL.</p>
-            <p style="color: #64748b; font-size: 14px; margin-top: 20px;">Ejemplo: <code>?file=documento.pdf</code></p>
-          </div>
-        `;
-        documentName.textContent = 'Sin documento especificado';
-        
-        // Deshabilitar botones
-        openTab.style.opacity = '0.5';
-        openTab.style.pointerEvents = 'none';
-        download.style.opacity = '0.5';
-        download.style.pointerEvents = 'none';
+          <div style="padding:40px;text-align:center;font-family:system-ui;">
+            <h3 style="color:#e53e3e;">No se especific車 ning迆n documento</h3>
+            <p>Agregue el par芍metro <code>?file=archivo.pdf</code> a la URL.</p>
+          </div>`;
+        if (documentName) documentName.textContent = 'Sin documento especificado';
+        if (openTab) { openTab.style.opacity = '.5'; openTab.style.pointerEvents = 'none'; }
+        if (download) { download.style.opacity = '.5'; download.style.pointerEvents = 'none'; }
       } else {
-        // Configurar iframe y botones
         pdfFrame.src = src;
-        openTab.href = src;
-        download.href = src;
-        download.download = file;
-        
-        // Actualizar nombre del documento
+        if (openTab) openTab.href = src;
+        if (download) { download.href = src; download.download = file; }
         const cleanName = getCleanFileName(file);
-        documentName.textContent = cleanName;
+        if (documentName) documentName.textContent = cleanName;
         document.title = `${cleanName} - Hospital San Jorge de Ayapel`;
-
-        // Manejar errores de carga
-        pdfFrame.onerror = function() {
-          pdfFrame.srcdoc = `
-            <div style="padding: 40px; text-align: center; font-family: 'Segoe UI', sans-serif;">
-              <div style="font-size: 48px; margin-bottom: 20px;">??</div>
-              <h3 style="color: #e53e3e; margin-bottom: 10px;">Error al cargar el documento</h3>
-              <p style="color: #64748b;">El archivo <strong>${file}</strong> no pudo ser cargado.</p>
-              <p style="color: #64748b; font-size: 14px;">Verifique que el archivo exista en la carpeta <code>/pdfs</code> del servidor.</p>
-            </div>
-          `;
-        };
       }
     }
 
-    // Ejecutar inicializaci車n cuando la p芍gina est谷 lista
     document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
