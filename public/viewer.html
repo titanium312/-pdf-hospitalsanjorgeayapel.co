@@ -3,59 +3,404 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Visor PDF</title>
+  <title>Visor PDF - Hospital San Jorge de Ayapel</title>
   <style>
-    :root { --bg:#0b1020; --panel:#111831; --txt:#e8ecf7; --muted:#93a1c8; --accent:#7aa2ff; }
-    *{box-sizing:border-box}
-    body{margin:0; background:var(--bg); color:var(--txt); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto}
-    header{display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(17,24,49,.85), rgba(17,24,49,.65)); backdrop-filter: blur(6px); position:sticky; top:0; z-index:10}
-    .crumbs{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-    .sp{flex:1}
-    .bar{display:flex; gap:8px}
-    button,a.btn{appearance:none; border:1px solid rgba(255,255,255,.12); background:var(--panel); color:var(--txt); padding:8px 12px; border-radius:10px; font-weight:600; cursor:pointer; text-decoration:none}
-    a.btn.primary{background:linear-gradient(180deg,#1f2a4a,#162243); border-color:#2d3b63}
-    main{max-width:1200px; margin:14px auto; padding:0 10px}
-    .frameWrap{border:1px solid rgba(255,255,255,.1); border-radius:16px; overflow:hidden; box-shadow:0 10px 28px rgba(0,0,0,.35)}
-    iframe{width:100%; height:80vh; display:block; background:#0a0f1f}
-    .hint{color:var(--muted); font-size:12px; padding:10px}
+    :root { 
+      --primary: #2c5aa0;
+      --primary-light: #3a6bb5;
+      --secondary: #1a365d;
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --txt: #1a202c;
+      --muted: #64748b;
+      --accent: #3182ce;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --success: #38a169;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      box-shadow: 0 4px 12px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    
+    .hospital-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .hospital-logo {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .hospital-info h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    
+    .hospital-info .subtitle {
+      margin: 0;
+      font-size: 12px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .btn {
+      appearance: none;
+      border: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+    
+    .btn.primary {
+      background: var(--success);
+    }
+    
+    .btn.primary:hover {
+      background: #2f855a;
+    }
+    
+    .btn.back {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--primary);
+    }
+    
+    .btn.back:hover {
+      background: white;
+      color: var(--secondary);
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+    
+    .document-info {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    
+    .document-title {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .document-meta {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .pdf-container {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--shadow);
+      position: relative;
+    }
+    
+    .pdf-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 1;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      display: block;
+      background: #fafafa;
+      border: none;
+    }
+    
+    .loading-message {
+      padding: 40px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    
+    .error-message {
+      padding: 30px;
+      text-align: center;
+      color: #e53e3e;
+      background: #fed7d7;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .help-text {
+      background: #e6fffa;
+      border: 1px solid #81e6d9;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #285e61;
+    }
+    
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .hospital-info h1 {
+        font-size: 18px;
+      }
+      
+      .document-meta {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      iframe {
+        height: 70vh;
+        min-height: 500px;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="crumbs" id="crumbs">📄 Visor</div>
-    <div class="sp"></div>
-    <div class="bar">
-      <a id="openTab" class="btn">Abrir pestaña</a>
-      <a id="download" class="btn primary" download>Descargar</a>
-      <a class="btn" href="/" title="Volver">Inicio</a>
+  <header class="header">
+    <div class="header-content">
+      <div class="hospital-title">
+        <div class="hospital-logo">🏥</div>
+        <div class="hospital-info">
+          <h1>Hospital San Jorge de Ayapel</h1>
+          <p class="subtitle">Sistema de Documentos Digitales</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a id="openTab" class="btn" target="_blank" rel="noopener">
+          📋 Nueva Pestaña
+        </a>
+        <a id="download" class="btn primary" download>
+          💾 Descargar
+        </a>
+        <a class="btn back" href="https://hospitalsanjorgeayapel.com/">
+          🏠 Volver al Portal
+        </a>
+      </div>
     </div>
   </header>
+
   <main>
-    <div class="frameWrap">
-      <iframe id="frame" src=""></iframe>
+    <div class="document-info">
+      <h2 class="document-title">
+        📄 <span id="documentName">Documento</span>
+      </h2>
+      <div class="document-meta">
+        <div class="meta-item">
+          <span>📅</span>
+          <span id="viewDate">Fecha de visualización: <strong id="currentDate"></strong></span>
+        </div>
+        <div class="meta-item">
+          <span>🔒</span>
+          <span>Documento oficial del Hospital San Jorge de Ayapel</span>
+        </div>
+        <div class="meta-item" id="fileSize" style="display: none;">
+          <span>📊</span>
+          <span id="fileSizeText">Tamaño del archivo</span>
+        </div>
+      </div>
     </div>
-    <div class="hint">Si el PDF no carga, abre en nueva pestaña o verifica que exista en <code>/public/pdfs</code>.</div>
+
+    <div class="pdf-container">
+      <iframe id="pdfFrame" src=""></iframe>
+    </div>
+
+    <div class="help-text">
+      <strong>💡 Sugerencia:</strong> Si el documento no se visualiza correctamente, puede utilizar el botón "Nueva Pestaña" para abrirlo en una ventana independiente, o el botón "Descargar" para guardarlo en su dispositivo.
+    </div>
+
+    <div class="footer">
+      © 2025 Hospital San Jorge de Ayapel - Todos los derechos reservados<br>
+      Sistema de gestión documental institucional
+    </div>
   </main>
 
   <script>
+    // Configuración inicial
     const params = new URLSearchParams(location.search);
-    const file = (params.get('file') || '').replace(/[^\w\-\. %]/g,'');
+    const file = (params.get('file') || '').replace(/[^\w\-\. %]/g, '');
     const src = file ? '/pdfs/' + encodeURIComponent(file) : '';
 
-    const frame = document.getElementById('frame');
+    // Elementos del DOM
+    const pdfFrame = document.getElementById('pdfFrame');
     const openTab = document.getElementById('openTab');
     const download = document.getElementById('download');
-    const crumbs = document.getElementById('crumbs');
+    const documentName = document.getElementById('documentName');
+    const currentDate = document.getElementById('currentDate');
 
-    if (!file) {
-      frame.srcdoc = '<div style="padding:24px;color:#93a1c8">Falta el parámetro <b>?file=</b></div>';
-    } else {
-      frame.src = src;
-      openTab.href = src; openTab.target = '_blank'; openTab.rel='noopener';
-      download.href = src; download.download = file;
-      crumbs.textContent = '📄 ' + file;
-      document.title = 'Visor: ' + file;
+    // Función para formatear la fecha actual
+    function formatCurrentDate() {
+      const now = new Date();
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      return now.toLocaleDateString('es-CO', options);
     }
+
+    // Función para obtener el nombre limpio del archivo
+    function getCleanFileName(filename) {
+      return filename.replace(/\.(pdf|PDF)$/, '').replace(/[-_]/g, ' ');
+    }
+
+    // Inicialización
+    function init() {
+      // Establecer fecha actual
+      currentDate.textContent = formatCurrentDate();
+
+      if (!file) {
+        // Mostrar mensaje de error si no hay archivo
+        pdfFrame.srcdoc = `
+          <div style="padding: 40px; text-align: center; font-family: 'Segoe UI', sans-serif;">
+            <div style="font-size: 48px; margin-bottom: 20px;">📄</div>
+            <h3 style="color: #e53e3e; margin-bottom: 10px;">No se especificó ningún documento</h3>
+            <p style="color: #64748b;">Para visualizar un documento, agregue el parámetro <code>?file=nombre-del-archivo.pdf</code> a la URL.</p>
+            <p style="color: #64748b; font-size: 14px; margin-top: 20px;">Ejemplo: <code>?file=documento.pdf</code></p>
+          </div>
+        `;
+        documentName.textContent = 'Sin documento especificado';
+        
+        // Deshabilitar botones
+        openTab.style.opacity = '0.5';
+        openTab.style.pointerEvents = 'none';
+        download.style.opacity = '0.5';
+        download.style.pointerEvents = 'none';
+      } else {
+        // Configurar iframe y botones
+        pdfFrame.src = src;
+        openTab.href = src;
+        download.href = src;
+        download.download = file;
+        
+        // Actualizar nombre del documento
+        const cleanName = getCleanFileName(file);
+        documentName.textContent = cleanName;
+        document.title = `${cleanName} - Hospital San Jorge de Ayapel`;
+
+        // Manejar errores de carga
+        pdfFrame.onerror = function() {
+          pdfFrame.srcdoc = `
+            <div style="padding: 40px; text-align: center; font-family: 'Segoe UI', sans-serif;">
+              <div style="font-size: 48px; margin-bottom: 20px;">⚠️</div>
+              <h3 style="color: #e53e3e; margin-bottom: 10px;">Error al cargar el documento</h3>
+              <p style="color: #64748b;">El archivo <strong>${file}</strong> no pudo ser cargado.</p>
+              <p style="color: #64748b; font-size: 14px;">Verifique que el archivo exista en la carpeta <code>/pdfs</code> del servidor.</p>
+            </div>
+          `;
+        };
+      }
+    }
+
+    // Ejecutar inicialización cuando la página esté lista
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
