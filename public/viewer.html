@@ -27,12 +27,12 @@
       margin: 0;
       background: var(--bg);
       color: var(--txt);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
     }
     
     .header {
-      background: rgb(155, 236, 238);
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: white;
       box-shadow: 0 4px 12px var(--shadow);
       position: sticky;
@@ -264,15 +264,21 @@
   <header class="header">
     <div class="header-content">
       <div class="hospital-title">
-        <div class="hospital-logo">馃彞</div>
+        <div class="hospital-logo">??</div>
         <div class="hospital-info">
           <h1>Hospital San Jorge de Ayapel</h1>
           <p class="subtitle">Sistema de Documentos Digitales</p>
         </div>
       </div>
       <div class="header-actions">
+        <a id="openTab" class="btn" target="_blank" rel="noopener">
+          ?? Nueva Pesta?a
+        </a>
+        <a id="download" class="btn primary" download>
+          ?? Descargar
+        </a>
         <a class="btn back" href="https://hospitalsanjorgeayapel.com/">
-          馃彔 Volver al Portal
+          ?? Volver al Portal
         </a>
       </div>
     </div>
@@ -281,8 +287,22 @@
   <main>
     <div class="document-info">
       <h2 class="document-title">
-         <span id="documentName">Documento</span>
+        ?? <span id="documentName">Documento</span>
       </h2>
+      <div class="document-meta">
+        <div class="meta-item">
+          <span>??</span>
+          <span id="viewDate">Fecha de visualización: <strong id="currentDate"></strong></span>
+        </div>
+        <div class="meta-item">
+          <span>??</span>
+          <span>Documento oficial del Hospital San Jorge de Ayapel</span>
+        </div>
+        <div class="meta-item" id="fileSize" style="display: none;">
+          <span>??</span>
+          <span id="fileSizeText">Tama?o del archivo</span>
+        </div>
+      </div>
     </div>
 
     <div class="pdf-container">
@@ -290,17 +310,17 @@
     </div>
 
     <div class="help-text">
-      <strong>馃挕 Sugerencia:</strong> Si el documento no se visualiza correctamente, puede utilizar el bot贸n "Nueva Pesta帽a" para abrirlo en una ventana independiente, o el bot贸n "Descargar" para guardarlo en su dispositivo.
+      <strong>?? Sugerencia:</strong> Si el documento no se visualiza correctamente, puede utilizar el botón "Nueva Pesta?a" para abrirlo en una ventana independiente, o el botón "Descargar" para guardarlo en su dispositivo.
     </div>
 
     <div class="footer">
-      漏 2025 Hospital San Jorge de Ayapel - Todos los derechos reservados<br>
-      Sistema de gesti贸n documental institucional
+      ? 2025 Hospital San Jorge de Ayapel - Todos los derechos reservados<br>
+      Sistema de gestión documental institucional
     </div>
   </main>
 
   <script>
-    // Configuraci贸n inicial
+    // Configuración inicial
     const params = new URLSearchParams(location.search);
     const file = (params.get('file') || '').replace(/[^\w\-\. %]/g, '');
     const src = file ? '/pdfs/' + encodeURIComponent(file) : '';
@@ -312,7 +332,7 @@
     const documentName = document.getElementById('documentName');
     const currentDate = document.getElementById('currentDate');
 
-    // Funci贸n para formatear la fecha actual
+    // Función para formatear la fecha actual
     function formatCurrentDate() {
       const now = new Date();
       const options = {
@@ -326,12 +346,12 @@
       return now.toLocaleDateString('es-CO', options);
     }
 
-    // Funci贸n para obtener el nombre limpio del archivo
+    // Función para obtener el nombre limpio del archivo
     function getCleanFileName(filename) {
       return filename.replace(/\.(pdf|PDF)$/, '').replace(/[-_]/g, ' ');
     }
 
-    // Inicializaci贸n
+    // Inicialización
     function init() {
       // Establecer fecha actual
       currentDate.textContent = formatCurrentDate();
@@ -340,9 +360,9 @@
         // Mostrar mensaje de error si no hay archivo
         pdfFrame.srcdoc = `
           <div style="padding: 40px; text-align: center; font-family: 'Segoe UI', sans-serif;">
-            <div style="font-size: 48px; margin-bottom: 20px;">馃搫</div>
-            <h3 style="color: #e53e3e; margin-bottom: 10px;">No se especific贸 ning煤n documento</h3>
-            <p style="color: #64748b;">Para visualizar un documento, agregue el par谩metro <code>?file=nombre-del-archivo.pdf</code> a la URL.</p>
+            <div style="font-size: 48px; margin-bottom: 20px;">??</div>
+            <h3 style="color: #e53e3e; margin-bottom: 10px;">No se especificó ningún documento</h3>
+            <p style="color: #64748b;">Para visualizar un documento, agregue el parámetro <code>?file=nombre-del-archivo.pdf</code> a la URL.</p>
             <p style="color: #64748b; font-size: 14px; margin-top: 20px;">Ejemplo: <code>?file=documento.pdf</code></p>
           </div>
         `;
@@ -369,7 +389,7 @@
         pdfFrame.onerror = function() {
           pdfFrame.srcdoc = `
             <div style="padding: 40px; text-align: center; font-family: 'Segoe UI', sans-serif;">
-              <div style="font-size: 48px; margin-bottom: 20px;">鈿狅笍</div>
+              <div style="font-size: 48px; margin-bottom: 20px;">??</div>
               <h3 style="color: #e53e3e; margin-bottom: 10px;">Error al cargar el documento</h3>
               <p style="color: #64748b;">El archivo <strong>${file}</strong> no pudo ser cargado.</p>
               <p style="color: #64748b; font-size: 14px;">Verifique que el archivo exista en la carpeta <code>/pdfs</code> del servidor.</p>
@@ -379,7 +399,7 @@
       }
     }
 
-    // Ejecutar inicializaci贸n cuando la p谩gina est茅 lista
+    // Ejecutar inicialización cuando la página esté lista
     document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
